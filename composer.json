@@ -1,0 +1,21 @@
+{
+    "name": "commscenter/comms-php-sdk",
+    "description": "PHP API for Comms ecommerce system",
+    "homepage": "https://github.com/commscenter/comms-php-sdk",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bojan Rajh",
+            "email": "bojan@startcomms.com"
+        }
+    ],
+    "require": {
+        "pckg-app/api": "dev-master"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Pckg": "src\\"
+        }
+    }
+}
