@@ -1,5 +1,6 @@
 <?php namespace CommsCenter\Comms;
 
+use CommsCenter\Comms\Endpoint\EmailTemplate;
 use GuzzleHttp\RequestOptions;
 use Pckg\Api\Api as PckgApi;
 
@@ -28,6 +29,11 @@ class Api extends PckgApi
             ],
             RequestOptions::TIMEOUT => 15,
         ];
+    }
+
+    public function emailTemplates()
+    {
+        return new EmailTemplate($this);
     }
 
 }
