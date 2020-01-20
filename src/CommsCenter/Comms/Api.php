@@ -1,6 +1,7 @@
 <?php namespace CommsCenter\Comms;
 
 use CommsCenter\Comms\Endpoint\EmailTemplate;
+use CommsCenter\Comms\Endpoint\PacketPictures;
 use GuzzleHttp\RequestOptions;
 use Pckg\Api\Api as PckgApi;
 
@@ -25,15 +26,21 @@ class Api extends PckgApi
 
         $this->requestOptions = [
             RequestOptions::HEADERS => [
-                'X-Comms-Api-Key' => $this->apiKey,
+                'X-Comms-API-Key' => $this->apiKey,
             ],
             RequestOptions::TIMEOUT => 15,
+            RequestOptions::VERIFY => false,
         ];
     }
 
     public function emailTemplates()
     {
         return new EmailTemplate($this);
+    }
+
+    public function packetPictures()
+    {
+        return new PacketPictures($this);
     }
 
 }
