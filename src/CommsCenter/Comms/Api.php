@@ -5,9 +5,11 @@ use CommsCenter\Comms\Endpoint\News;
 use CommsCenter\Comms\Endpoint\Newsletters;
 use CommsCenter\Comms\Endpoint\Offers;
 use CommsCenter\Comms\Endpoint\PacketPictures;
+use CommsCenter\Comms\Endpoint\Stores;
 use CommsCenter\Comms\Endpoint\Users;
 use GuzzleHttp\RequestOptions;
 use Pckg\Api\Api as PckgApi;
+use Pckg\Api\Endpoint;
 
 /**
  * Class Api
@@ -17,24 +19,37 @@ use Pckg\Api\Api as PckgApi;
 class Api extends PckgApi
 {
 
+    const API_KEY_HEADER = 'X-Comms-API-Key';
+
     /**
      * Api constructor.
      *
      * @param $endpoint
      * @param $apiKey
      */
-    public function __construct($endpoint, $apiKey)
+    public function __construct(?string $endpoint, ?string $apiKey)
     {
-        $this->endpoint = $endpoint;
-        $this->apiKey = $apiKey;
-
         $this->requestOptions = [
-            RequestOptions::HEADERS => [
-                'X-Comms-API-Key' => $this->apiKey,
-            ],
             RequestOptions::TIMEOUT => 25,
             RequestOptions::VERIFY => false,
         ];
+
+        if ($endpoint) {
+            $this->setEndpoint($endpoint);
+        }
+
+        if ($apiKey) {
+            $this->setApiKey($apiKey);
+        }
+    }
+
+    public function setEndpoint(string $endpoint): self
+    {
+        if (strpos($endpoint, '//') === false) {
+            $endpoint = 'https://' . $endpoint . '.id.startcomms.com/api/';
+        }
+
+        return parent::setEndpoint($endpoint);
     }
 
     /**
@@ -85,4 +100,11 @@ class Api extends PckgApi
         return new Users($this);
     }
 
+    /**
+     * @return Users
+     */
+    public function stores($data = []): Stores
+    {
+        return new Stores($this, $data);
+    }
 }
