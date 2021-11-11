@@ -5,6 +5,7 @@ use CommsCenter\Comms\Endpoint\News;
 use CommsCenter\Comms\Endpoint\Newsletters;
 use CommsCenter\Comms\Endpoint\Offers;
 use CommsCenter\Comms\Endpoint\PacketPictures;
+use CommsCenter\Comms\Endpoint\Packets;
 use CommsCenter\Comms\Endpoint\Stores;
 use CommsCenter\Comms\Endpoint\Users;
 use GuzzleHttp\RequestOptions;
@@ -82,6 +83,14 @@ class Api extends PckgApi
     public function offers()
     {
         return new Offers($this);
+    }
+
+    /**
+     * @return Packets
+     */
+    public function packets(array $data = [])
+    {
+        return new Packets($this, $data);
     }
 
     /**
