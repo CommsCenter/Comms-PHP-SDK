@@ -1,7 +1,6 @@
 <?php namespace CommsCenter\Comms\Endpoint;
 
 use Pckg\Api\Endpoint;
-use Pckg\Api\Endpoint\HttpQl;
 
 /**
  * Class Stores
@@ -25,5 +24,10 @@ class Stores extends Endpoint
     public function installShare(string $type, string $uuid): bool
     {
         return !!$this->getApi()->postApi('library/share/' . $type . '/add', ['uuid' => $uuid])->getApiResponse('success');
+    }
+
+    public function mockShares(array $jsons): bool
+    {
+        return !!$this->getApi()->postApi('library/shares/mock', ['jsons' => $jsons])->getApiResponse('success');
     }
 }
